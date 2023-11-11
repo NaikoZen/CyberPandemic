@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.SceneManagement;
+
 
 public class ConnectionMenu : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class ConnectionMenu : MonoBehaviour
 
     public void ConectarCliente()
     {
+      
         NetworkManager.Singleton.StartClient();
 
     }
@@ -18,6 +21,7 @@ public class ConnectionMenu : MonoBehaviour
 
     public void ConectarHost()
     {
+      
         NetworkManager.Singleton.StartHost();
     }
 
