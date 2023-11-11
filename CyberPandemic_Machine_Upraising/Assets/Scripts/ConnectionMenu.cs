@@ -7,8 +7,12 @@ using UnityEngine.SceneManagement;
 
 public class ConnectionMenu : MonoBehaviour
 {
-   
+
     //Script do Menu - Botoes e suas funcionalidades...
+
+    [SerializeField] private GameObject creditsPanel;
+
+
 
 
     public void ConectarCliente()
@@ -23,6 +27,21 @@ public class ConnectionMenu : MonoBehaviour
     {
       
         NetworkManager.Singleton.StartHost();
+    }
+
+    public void OpenCredits()
+    {
+
+        creditsPanel.SetActive(true);
+
+    }
+
+
+    public void CloseCredits()
+    {
+
+        creditsPanel.SetActive(false);
+
     }
 
 
