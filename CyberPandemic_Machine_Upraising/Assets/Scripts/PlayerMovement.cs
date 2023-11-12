@@ -8,10 +8,10 @@ public class PlayerMovement : NetworkBehaviour
 {
     public Transform personalCamera; //referencia da camera.
 
-    public override void OnNetworkSpawn()   //metodo executado quando o objeto é criado.
+    public override void OnNetworkSpawn()   //metodo executado quando o objeto ï¿½ criado.
     {
         CinemachineVirtualCamera vcam = personalCamera.gameObject.GetComponent<CinemachineVirtualCamera>(); //acessando o componente da vcam.
-        if (IsOwner) //se formos o dono deste objeto, a camera tem prioridade 1, se não, a camera tem prioridade 0.
+        if (IsOwner) //se formos o dono deste objeto, a camera tem prioridade 1, se nï¿½o, a camera tem prioridade 0.
         {
             vcam.Priority = 1;
         }
@@ -27,8 +27,8 @@ public class PlayerMovement : NetworkBehaviour
         if (IsOwner) //utilizando o NetworkBehaviour cada um move o seu GameObject/player.
         {
             float h = Input.GetAxis("Horizontal") * Time.deltaTime * 5f;
-            float v = Input.GetAxis("Vertical") * Time.deltaTime * 5f;
-            transform.Translate(new Vector3(h, 0, v));
+           // float v = Input.GetAxis("Vertical") * Time.deltaTime * 5f;
+            transform.Translate(new Vector3(h, 0, 0));
         }
         
 
