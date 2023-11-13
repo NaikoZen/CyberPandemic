@@ -104,7 +104,7 @@ Transform:
   - {fileID: 7747355568622123107}
   - {fileID: 2736238861354413483}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2736238861780739219
 MonoBehaviour:
@@ -344,6 +344,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0800555d8d69dc843b9322be5bc76ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpForce: 10
+  isJumping: 0
+  doubleJump: 0
   personalCamera: {fileID: 2736238861354413483}
 --- !u!114 &7493036406567557943
 MonoBehaviour:
