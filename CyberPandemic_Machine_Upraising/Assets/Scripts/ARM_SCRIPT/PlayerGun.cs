@@ -1,41 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
 public class PlayerGun : NetworkBehaviour
 {
-    //este script serve para uma mão com uma arma, ou a propria arma.
-
     [SerializeField] Transform firingPoint;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] float firingSpeed;
 
-    
-
-    //esta CLASSE é publica pois é chamada por outro script
-    public static PlayerGun Instance;
-
     private float lastTimeShot = 0;
 
-    //evitar ao máximo usar "em jogos de rede" o AWAKE.
-    public override void OnNetworkSpawn()
+    void Update()
     {
-        Instance = GetComponent<PlayerGun>();
-        
+        // Somente o cliente dono do jogador pode iniciar o spawn do objeto
+        if (IsLocalPlayer && Input.GetMouseButtonDown(0))
+        {
+            // Chama o método no servidor para solicitar permissão para atirar
+            RequestPermissionToShootServerRpc();
+        }
     }
 
-    
-
-    public void Shoot()
+    [ServerRpc(RequireOwnership = false)]
+    void RequestPermissionToShootServerRpc()
     {
-       
+        // Verifica se é possível disparar novamente
+        if (lastTimeShot + firingSpeed <= Time.time)
+        {
+            // Concede permissão para atirar no cliente
+            GrantPermissionToShootClientRpc();
+        }
+    }
+
+    [ClientRpc]
+    void GrantPermissionToShootClientRpc()
+    {
+        // Somente o cliente dono do jogador pode atirar
+        if (IsLocalPlayer)
+        {
+            // Agora o cliente tem permissão para atirar, chama o RPC para spawnar o objeto
+            SpawnProjectileServerRpc();
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    void SpawnProjectileServerRpc()
+    {
+        // Verifica se é possível disparar novamente
         if (lastTimeShot + firingSpeed <= Time.time)
         {
             lastTimeShot = Time.time;
-           GameObject go =  Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
-            go.GetComponent<NetworkObject>().SpawnAsPlayerObject(OwnerClientId);
+
+            // Sincroniza a posição e a rotação do firingPoint do servidor
+            Vector3 firingPointPosition = firingPoint.position;
+            Quaternion firingPointRotation = firingPoint.rotation;
+
+            // Instancia o objeto no servidor
+            GameObject go = Instantiate(projectilePrefab, firingPointPosition, firingPointRotation);
+
+            // Spawna o objeto na rede
+            go.GetComponent<NetworkObject>().Spawn();
         }
-       
     }
 }
