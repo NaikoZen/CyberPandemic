@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Unity.Netcode;
+using UnityEngine;
 
 public class aimtentativa : NetworkBehaviour
 {
@@ -9,7 +7,7 @@ public class aimtentativa : NetworkBehaviour
     private void Update()
     {
         AimRotation();
-        ShootInput();
+      //  ShootInput();
     }
 
 
@@ -29,21 +27,23 @@ public class aimtentativa : NetworkBehaviour
                 transform.LookAt(new Vector3(_hit.point.x, _hit.point.y, transform.position.z));
             }
         }
-        
+
     }
 
 
     //O Update vai chamar esta função quando o botão esquerdo do mouse for apertado "Fire1" 
-    public void ShootInput()
-    {
-      
-        
-            if (Input.GetButton("Fire1"))
-            {
-                //esta função esta sendo chamada de outro script, do PlayerGun, pois lá há a CLASSE PlayerGun.
-                PlayerGun.Instance.Shoot();
-            }
-        
-      
-    }
+   // public void ShootInput()
+  //  {
+
+        // Somente o servidor ou o host podem iniciar o spawn do objeto
+    //    if ((IsLocalPlayer) && Input.GetMouseButtonDown(0))
+   //     {
+            // Chama o método no servidor para spawnar o objeto
+   //         PlayerGun.Instance.SpawnProjectileServer();
+  //      }
+   // }
+
+
+
+
 }
