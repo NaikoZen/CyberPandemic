@@ -5,37 +5,36 @@ using Unity.Netcode;
 
 public class PlayerGun : NetworkBehaviour
 {
-    //este script serve para uma m„o com uma arma, ou a propria arma.
-
     [SerializeField] Transform firingPoint;
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] float firingSpeed;
 
-    
-
-    //esta CLASSE È publica pois È chamada por outro script
     public static PlayerGun Instance;
 
     private float lastTimeShot = 0;
 
-    //evitar ao m·ximo usar "em jogos de rede" o AWAKE.
     public override void OnNetworkSpawn()
     {
         Instance = GetComponent<PlayerGun>();
-        
     }
-
-    
 
     public void Shoot()
     {
-       
-        if (lastTimeShot + firingSpeed <= Time.time)
+        if (IsServer && lastTimeShot + firingSpeed <= Time.time)
         {
             lastTimeShot = Time.time;
-           GameObject go =  Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
-            go.GetComponent<NetworkObject>().SpawnAsPlayerObject(OwnerClientId);
+            
+            // Instancia o proj√©til no servidor.
+            GameObject go = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
+
+            // Obt√©m a refer√™ncia para o componente NetworkObject.
+            NetworkObject networkObject = go.GetComponent<NetworkObject>();
+
+            // Se o objeto foi instanciado no servidor, atribui a autoridade.
+            if (networkObject != null && networkObject.NetworkObjectId != null)
+            {
+                networkObject.SpawnAsPlayerObject(OwnerClientId);
+            }
         }
-       
     }
 }
