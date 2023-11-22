@@ -7,7 +7,7 @@ public class aimtentativa : NetworkBehaviour
     private void Update()
     {
         AimRotation();
-      //  ShootInput();
+      
     }
 
 
@@ -31,17 +31,7 @@ public class aimtentativa : NetworkBehaviour
     }
 
 
-    //O Update vai chamar esta função quando o botão esquerdo do mouse for apertado "Fire1" 
-   // public void ShootInput()
-  //  {
-
-        // Somente o servidor ou o host podem iniciar o spawn do objeto
-    //    if ((IsLocalPlayer) && Input.GetMouseButtonDown(0))
-   //     {
-            // Chama o método no servidor para spawnar o objeto
-   //         PlayerGun.Instance.SpawnProjectileServer();
-  //      }
-   // }
+   
 
 
 
