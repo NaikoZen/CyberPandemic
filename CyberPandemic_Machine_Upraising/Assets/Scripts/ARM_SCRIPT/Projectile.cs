@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Unity.VisualScripting;
 
 public class Projectile : NetworkBehaviour
 {
     //este script serve para a Bullet
     private Vector3 firingPoint;
+
 
     [SerializeField] private float projectileSpeed;
 
@@ -18,7 +20,7 @@ public class Projectile : NetworkBehaviour
         firingPoint = transform.position;
     }
 
-   
+
 
 
     void Update()
@@ -28,18 +30,27 @@ public class Projectile : NetworkBehaviour
 
     void MoveProjectile()
     {
-        
-        if (Vector3.Distance(firingPoint, transform.position) > maxProjectileDistance)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            transform.Translate(Vector3.up * projectileSpeed * Time.deltaTime);
-        }
+
+
+        transform.Translate(Vector3.up * projectileSpeed * Time.deltaTime);
+
 
     }
 
+    void OnTriggerEnter(Collider col)
+    {
+
+        if (col.gameObject.CompareTag("Untagged"))
+        {
+            Debug.Log("destruira");
+            Destroy(gameObject);
+
+        }
+
+
+
+
+    }
 
 
 }
