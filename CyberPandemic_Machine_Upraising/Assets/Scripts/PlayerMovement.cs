@@ -7,15 +7,17 @@ using Cinemachine;
 public class PlayerMovement : NetworkBehaviour
 {
 
-   // public Animator anim;
-   // public float speed;
+    // public Animator anim;
+    // public float speed;
     public float jumpForce;
 
     public bool isJumping;
     public bool doubleJump;
 
-   // public int vidaMaxima;
-   // public float vidaAtual;
+  
+
+    // public int vidaMaxima;
+    // public float vidaAtual;
 
     private Rigidbody rb;
 
@@ -23,12 +25,15 @@ public class PlayerMovement : NetworkBehaviour
     private float maxYvel;
     public Transform personalCamera; //referencia da camera.
 
-void Start()
-{
-    rb = GetComponent<Rigidbody>();
-}
+    void Start()
+    {
+                                        
+
+        rb = GetComponent<Rigidbody>();
+        
+    }
     public override void OnNetworkSpawn()   //metodo executado quando o objeto � criado.
-    { 
+    {
         CinemachineVirtualCamera vcam = personalCamera.gameObject.GetComponent<CinemachineVirtualCamera>(); //acessando o componente da vcam.
         if (IsOwner) //se formos o dono deste objeto, a camera tem prioridade 1, se n�o, a camera tem prioridade 0.
         {
@@ -43,8 +48,8 @@ void Start()
 
     void Update()
     {
-         Move();
-         Jump();
+        Move();
+        Jump();
         y = rb.velocity.y;
 
     }
@@ -52,30 +57,31 @@ void Start()
     {
         if (IsOwner)
         {
-        float h = Input.GetAxis("Horizontal") * Time.deltaTime * 5f;
-           // float v = Input.GetAxis("Vertical") * Time.deltaTime * 5f;
+            float h = Input.GetAxis("Horizontal") * Time.deltaTime * 5f;
+            // float v = Input.GetAxis("Vertical") * Time.deltaTime * 5f;
             transform.Translate(new Vector3(h, 0, 0));
+
         }
     }
 
     void Jump()
     {
-            if (IsOwner)
-         {
-
-        if (Input.GetButtonDown("Jump"))
+        if (IsOwner)
         {
-            if (!isJumping)
+
+            if (Input.GetButtonDown("Jump"))
             {
-                //audioS.clip = Sounds[0];
-                //audioS.Play();
-                rb.AddForce(new Vector2(0f, jumpForce), ForceMode.Impulse);
-                doubleJump = true;
-                //anim.SetTrigger("jump");
-                Debug.Log("Pulouu");
+                if (!isJumping)
+                {
+                    //audioS.clip = Sounds[0];
+                    //audioS.Play();
+                    rb.AddForce(new Vector2(0f, jumpForce), ForceMode.Impulse);
+                    doubleJump = true;
+                    //anim.SetTrigger("jump");
+                    Debug.Log("Pulouu");
+                }
             }
         }
-         }
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -97,12 +103,15 @@ void Start()
         }
     }
 
-     void OnCollisionExit(Collision collision)
+    void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.layer == 3)
         {
             isJumping = true;
         }
+
+       
+
     }
 }
 
