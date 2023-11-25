@@ -45,6 +45,13 @@ public class ConnectionMenu : MonoBehaviour
     }
 
 
+    public void QuitGame()
+    {
+        Debug.Log("saiu do jogo!");
+        Application.Quit();
+    }
+
+
 
 
 }
