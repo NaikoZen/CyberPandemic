@@ -24,7 +24,7 @@ public class SkinRotation : NetworkBehaviour
     void Start()
     {
 
-        //facingLeft é a Escala do Objeto - se a Scale de x = -1 esta olhando para Esquerda;
+        //facingLeft ï¿½ a Escala do Objeto - se a Scale de x = -1 esta olhando para Esquerda;
         facingRight = transform.localScale;
 
         facingLeft = transform.localScale;
@@ -52,7 +52,7 @@ public class SkinRotation : NetworkBehaviour
             {
                 //olhando para a Direita
                  transform.localScale = facingRight;
-                Debug.Log("olhou direita");
+                //Debug.Log("olhou direita");
 
 
             }
@@ -60,7 +60,7 @@ public class SkinRotation : NetworkBehaviour
             {
                 //olhando para a Esquerda
                  transform.localScale = facingLeft;
-                Debug.Log("olhou esquerda");
+                //Debug.Log("olhou esquerda");
             }
 
 
