@@ -6,7 +6,8 @@ using Cinemachine;
 
 public class PlayerMovement : NetworkBehaviour
 {
-
+    public GameObject animation01;
+    public GameObject animation02;
     // public Animator anim;
     // public float speed;
     public float jumpForce;
@@ -14,6 +15,7 @@ public class PlayerMovement : NetworkBehaviour
     public bool isJumping;
     public bool doubleJump;
 
+    public bool IsMoving;
   
 
     // public int vidaMaxima;
@@ -49,8 +51,21 @@ public class PlayerMovement : NetworkBehaviour
     void Update()
     {
         Move();
+             
+         if (IsMoving)
+        {
+            animation01.SetActive(false);
+            animation02.SetActive(true);
+        }
+        else
+        {
+            animation01.SetActive(true);
+            animation02.SetActive(false);
+        }
+    
         Jump();
         y = rb.velocity.y;
+    
 
     }
     void Move()
@@ -59,9 +74,23 @@ public class PlayerMovement : NetworkBehaviour
         {
             float h = Input.GetAxis("Horizontal") * Time.deltaTime * 5f;
             // float v = Input.GetAxis("Vertical") * Time.deltaTime * 5f;
+            
+
+            if (Mathf.Abs(h) > 0.01f)
+            {
+                IsMoving = true;
+            }
+            else
+            {
+                IsMoving = false;
+            }
             transform.Translate(new Vector3(h, 0, 0));
 
         }
+      
+        
+       
+
     }
 
     void Jump()

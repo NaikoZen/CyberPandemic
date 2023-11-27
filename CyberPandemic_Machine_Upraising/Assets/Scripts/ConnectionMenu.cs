@@ -11,6 +11,7 @@ public class ConnectionMenu : MonoBehaviour
     //Script do Menu - Botoes e suas funcionalidades...
 
     [SerializeField] private GameObject creditsPanel;
+    [SerializeField] private GameObject playerHud;
 
 
 
@@ -19,6 +20,7 @@ public class ConnectionMenu : MonoBehaviour
     {
       
         NetworkManager.Singleton.StartClient();
+        playerHud.SetActive(true);
 
     }
 
@@ -27,6 +29,7 @@ public class ConnectionMenu : MonoBehaviour
     {
       
         NetworkManager.Singleton.StartHost();
+        playerHud.SetActive(true);
     }
 
     public void OpenCredits()
@@ -50,6 +53,9 @@ public class ConnectionMenu : MonoBehaviour
         Debug.Log("saiu do jogo!");
         Application.Quit();
     }
+
+   
+    
 
 
 
