@@ -9,6 +9,7 @@ public class FlyingEnemy : NetworkBehaviour
     [SerializeField] float rotationSpeed = 3f;
     [SerializeField] float shootingInterval = 2f;
     [SerializeField] GameObject projectilePrefab;
+    [SerializeField] Transform firingPoint; // Novo: Ponto de disparo relativo ao inimigo
 
     private float timeSinceLastShot = 0f;
 
@@ -17,12 +18,23 @@ public class FlyingEnemy : NetworkBehaviour
         // Somente o servidor controla o comportamento do inimigo
         if (IsServer)
         {
-            MoveTowardsPlayer();
-            ShootAtPlayers();
+            // Obtém a posição do inimigo
+            Vector3 shooterPosition = transform.position;
+
+            // Move em direção ao jogador e dispara
+            MoveTowardsPlayerServerRpc();
+            ShootAtPlayersServerRpc(shooterPosition);
         }
     }
 
-    void MoveTowardsPlayer()
+    [ServerRpc]
+    public void MoveTowardsPlayerServerRpc()
+    {
+        MoveTowardsPlayerClientRpc();
+    }
+
+    [ClientRpc]
+    void MoveTowardsPlayerClientRpc()
     {
         // Encontra os jogadores na cena
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -40,28 +52,30 @@ public class FlyingEnemy : NetworkBehaviour
         }
     }
 
-    void ShootAtPlayers()
+    [ServerRpc]
+    public void ShootAtPlayersServerRpc(Vector3 shooterPosition)
+    {
+        // Chama o método no cliente passando a posição do inimigo
+        ShootAtPlayersClientRpc(shooterPosition);
+    }
+
+    [ClientRpc]
+    void ShootAtPlayersClientRpc(Vector3 shooterPosition)
     {
         timeSinceLastShot += Time.deltaTime;
 
         // Dispara em intervalos regulares
         if (timeSinceLastShot >= shootingInterval)
         {
-            // Encontra os jogadores na cena
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            // Calcula a direção do tiro com base na posição do inimigo
+            Vector3 shootDirection = shooterPosition - firingPoint.position;
+            Quaternion shootRotation = Quaternion.LookRotation(shootDirection, Vector3.up);
 
-            // Atira em direção a cada jogador encontrado
-            foreach (GameObject player in players)
-            {
-                Vector3 shootDirection = player.transform.position - transform.position;
-                Quaternion shootRotation = Quaternion.LookRotation(shootDirection, Vector3.up);
+            // Instancia o projétil usando o ponto de disparo
+            GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, shootRotation);
 
-                // Instancia o projétil
-                GameObject projectile = Instantiate(projectilePrefab, transform.position, shootRotation);
-
-                // Spawna o projétil na rede
-                projectile.GetComponent<NetworkObject>().Spawn();
-            }
+            // Spawna o projétil na rede
+            // projectile.GetComponent<NetworkObject>().Spawn();
 
             // Reinicia o temporizador de tiro
             timeSinceLastShot = 0f;
