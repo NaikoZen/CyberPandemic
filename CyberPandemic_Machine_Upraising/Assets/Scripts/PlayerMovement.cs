@@ -124,7 +124,7 @@ public class PlayerMovement : NetworkBehaviour
                     rb.AddForce(new Vector2(0f, jumpForce), ForceMode.Impulse);
                     doubleJump = true;
                     //anim.SetTrigger("jump");
-                    Debug.Log("Pulouu");
+                    //Debug.Log("Pulouu");
                 }
             }
         }

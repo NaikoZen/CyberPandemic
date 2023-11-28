@@ -15,14 +15,14 @@ public class PlayerGun : NetworkBehaviour
         // Somente o cliente dono do jogador pode iniciar o spawn do objeto
         if (IsLocalPlayer && Input.GetMouseButton(0))
         {
-            // Chama o método no servidor para solicitar permissão para atirar
+            // Chama o mï¿½todo no servidor para solicitar permissï¿½o para atirar
             if (lastTimeShot + firingSpeed <= Time.time)
             {
                 GameObject go = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
                 lastTimeShot = Time.time;
                 RequestPermissionToShootServerRpc();
 
-                Debug.Log("aqui pegou");
+                //Debug.Log("aqui pegou");
             }
 
         }
@@ -60,7 +60,7 @@ public class PlayerGun : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     void SpawnProjectileServerRpc(Vector3 position, Quaternion rotation)
     {
-        // Verifica se é possível disparar novamente
+        // Verifica se ï¿½ possï¿½vel disparar novamente
         if (lastTimeShot + firingSpeed <= Time.time)
         {
             if (!IsLocalPlayer)

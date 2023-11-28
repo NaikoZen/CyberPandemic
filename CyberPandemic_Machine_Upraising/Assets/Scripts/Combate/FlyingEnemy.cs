@@ -5,6 +5,7 @@ using Unity.Netcode;
 
 public class FlyingEnemy : NetworkBehaviour
 {
+    [SerializeField] int damageAmount = 1;
     [SerializeField] private HealthSystem healthSystem;
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float rotationSpeed = 3f;
@@ -79,7 +80,8 @@ public class FlyingEnemy : NetworkBehaviour
              HealthSystem playerHealth = projectile.GetComponent<HealthSystem>();
             
              if (playerHealth != null)
-            {
+            {   
+                Debug.Log("Deu Dano");
                 playerHealth.TakeDamage(damageAmount);
             }
             // Spawna o projétil na rede

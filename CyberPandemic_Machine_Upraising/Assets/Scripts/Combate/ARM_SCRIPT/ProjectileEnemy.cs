@@ -43,7 +43,7 @@ public class ProjectileEnemy : NetworkBehaviour
 
         if (col.gameObject.CompareTag("Untagged"))
         {
-            Debug.Log("destruira");
+           // Debug.Log("destruira");
             Destroy(gameObject);
 
         }

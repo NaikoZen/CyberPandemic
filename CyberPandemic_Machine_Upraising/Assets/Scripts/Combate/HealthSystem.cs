@@ -16,10 +16,12 @@ public class HealthSystem : NetworkBehaviour
     private void Start()
     {
         currentHealth = maxHealth;
+
     }
 
     public void TakeDamage(int damage)
-    {
+    {   
+        Debug.Log("TakeDamage");
         if (!IsClient)
             return;
 

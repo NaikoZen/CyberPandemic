@@ -9,7 +9,7 @@ public class Projectile : NetworkBehaviour
     //este script serve para a Bullet
     private Vector3 firingPoint;
 
-
+    [SerializeField] private int damageAmount = 1; // Nova propriedade de dano
     [SerializeField] private float projectileSpeed;
 
     [SerializeField] private float maxProjectileDistance;
@@ -38,19 +38,26 @@ public class Projectile : NetworkBehaviour
     }
 
     void OnTriggerEnter(Collider col)
-    {
-
-        if (col.gameObject.CompareTag("Untagged"))
+   {
+        if (col.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("destruira");
+            // Verifica se o objeto atingido tem um componente HealthSystem
+            HealthSystem healthSystem = col.GetComponent<HealthSystem>();
+            
+            if (healthSystem != null)
+            {
+                // Causa dano ao jogador
+                healthSystem.TakeDamage(damageAmount);
+                Debug.Log("Levou Dano");
+            }
+
+            // Destroi o projétil após atingir o jogador
             Destroy(gameObject);
-
         }
-
-
-
-
+        else if (col.gameObject.CompareTag("Untagged"))
+        {
+            // Destroi o projétil se atingir algo não identificado
+            Destroy(gameObject);
+        }
     }
-
-
 }
