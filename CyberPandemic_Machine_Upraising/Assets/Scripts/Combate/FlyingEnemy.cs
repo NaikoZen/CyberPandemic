@@ -6,7 +6,7 @@ using Unity.Netcode;
 public class FlyingEnemy : NetworkBehaviour
 {
     [SerializeField] int damageAmount = 1;
-    [SerializeField] private HealthSystem healthSystem;
+    [SerializeField] public HealthSystem healthSystem;
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float rotationSpeed = 3f;
     [SerializeField] float shootingInterval = 2f;
