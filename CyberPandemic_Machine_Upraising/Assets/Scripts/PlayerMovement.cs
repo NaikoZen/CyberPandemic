@@ -6,6 +6,7 @@ using Cinemachine;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    [SerializeField] private HealthSystem healthSystem;
     public GameObject animation01;
     public GameObject animation02;
     // public Animator anim;
@@ -26,6 +27,22 @@ public class PlayerMovement : NetworkBehaviour
     float x, y;
     private float maxYvel;
     public Transform personalCamera; //referencia da camera.
+
+    private void Awake()
+    {
+        // Verifica se está no cliente antes de subscrever ao evento
+        if (IsClient)
+        {
+            // Adiciona um ouvinte para o evento OnHealthChanged
+            healthSystem.OnHealthChanged += HandleHealthChanged;
+        }
+    }
+
+    private void HandleHealthChanged(int currentHealth, int maxHealth)
+    {
+        // Adicione qualquer lógica adicional quando a saúde do jogador muda
+        Debug.Log($"Player Health: {currentHealth}/{maxHealth}");
+    }
 
     void Start()
     {

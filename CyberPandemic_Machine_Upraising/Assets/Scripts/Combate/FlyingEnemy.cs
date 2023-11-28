@@ -5,6 +5,7 @@ using Unity.Netcode;
 
 public class FlyingEnemy : NetworkBehaviour
 {
+    [SerializeField] private HealthSystem healthSystem;
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float rotationSpeed = 3f;
     [SerializeField] float shootingInterval = 2f;
@@ -74,6 +75,13 @@ public class FlyingEnemy : NetworkBehaviour
             // Instancia o projétil usando o ponto de disparo
             GameObject projectile = Instantiate(projectilePrefab, firingPoint.position, shootRotation);
 
+             // Obtém o componente do sistema de saúde do jogador se atingir um jogador
+             HealthSystem playerHealth = projectile.GetComponent<HealthSystem>();
+            
+             if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(damageAmount);
+            }
             // Spawna o projétil na rede
             // projectile.GetComponent<NetworkObject>().Spawn();
 
