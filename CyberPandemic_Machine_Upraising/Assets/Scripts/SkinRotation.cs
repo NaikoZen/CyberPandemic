@@ -11,8 +11,8 @@ public class SkinRotation : NetworkBehaviour
 
 
     //para onde o Player esta olhando
-    private Vector3 facingRight;
-    private Vector3 facingLeft;
+    private Quaternion facingRight;
+    private Quaternion facingLeft;
 
 
 
@@ -25,11 +25,11 @@ public class SkinRotation : NetworkBehaviour
     {
 
         //facingLeft � a Escala do Objeto - se a Scale de x = -1 esta olhando para Esquerda;
-        facingRight = transform.localScale;
+        facingRight = transform.localRotation;
 
-        facingLeft = transform.localScale;
-        facingLeft.x = facingLeft.x * -1;
-
+        facingLeft = transform.localRotation;
+        //facingLeft.x = facingLeft.y = 180;
+        facingLeft.y = facingLeft.y = 180;
 
     }
 
@@ -51,7 +51,7 @@ public class SkinRotation : NetworkBehaviour
             if (r > 0)
             {
                 //olhando para a Direita
-                 transform.localScale = facingRight;
+                 transform.localRotation = facingRight;
                 //Debug.Log("olhou direita");
 
 
@@ -59,7 +59,7 @@ public class SkinRotation : NetworkBehaviour
             if (r < 0)
             {
                 //olhando para a Esquerda
-                 transform.localScale = facingLeft;
+                 transform.localRotation = facingLeft;
                 //Debug.Log("olhou esquerda");
             }
 
