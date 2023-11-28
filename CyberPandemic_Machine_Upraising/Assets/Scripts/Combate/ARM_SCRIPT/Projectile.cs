@@ -41,8 +41,9 @@ public class Projectile : NetworkBehaviour
    {
         if (col.gameObject.CompareTag("Enemy"))
         {
+            Debug.Log("acertou");
             // Verifica se o objeto atingido tem um componente HealthSystem
-            HealthSystem healthSystem = col.GetComponent<HealthSystem>();
+            HealthSystem healthSystem = col.GetComponent<FlyingEnemy>().healthSystem;
             
             if (healthSystem != null)
             {
