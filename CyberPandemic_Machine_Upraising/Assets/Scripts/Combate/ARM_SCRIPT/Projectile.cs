@@ -41,7 +41,7 @@ public class Projectile : NetworkBehaviour
    {
         if (col.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("acertou");
+            Debug.Log("Colidiu com o Inimigo");
             // Verifica se o objeto atingido tem um componente HealthSystem
             HealthSystem healthSystem = col.GetComponent<FlyingEnemy>().healthSystem;
             
@@ -49,7 +49,7 @@ public class Projectile : NetworkBehaviour
             {
                 // Causa dano ao jogador
                 healthSystem.TakeDamage(damageAmount);
-                Debug.Log("Levou Dano");
+                Debug.Log("Levou Dano Inimigo");
             }
 
             // Destroi o projétil após atingir o jogador

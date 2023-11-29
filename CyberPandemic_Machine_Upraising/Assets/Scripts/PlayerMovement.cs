@@ -6,7 +6,7 @@ using Cinemachine;
 
 public class PlayerMovement : NetworkBehaviour
 {
-    [SerializeField] private HealthSystem healthSystem;
+    [SerializeField] public HealthSystem healthSystem;
     public GameObject animation01;
     public GameObject animation02;
     // public Animator anim;

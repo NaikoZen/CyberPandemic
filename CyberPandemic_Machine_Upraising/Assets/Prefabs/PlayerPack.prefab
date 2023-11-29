@@ -691,6 +691,7 @@ GameObject:
   - component: {fileID: 7493036406567557943}
   - component: {fileID: 823729162076995858}
   - component: {fileID: 823729162076995859}
+  - component: {fileID: 8600819055332195702}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -821,7 +822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0800555d8d69dc843b9322be5bc76ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSystem: {fileID: 5160542844470919765, guid: a121b4414a971234aa61737238620c5e, type: 3}
+  healthSystem: {fileID: 8600819055332195702}
   animation01: {fileID: 4826440992433696479}
   animation02: {fileID: 3967937485917489815}
   jumpForce: 10
@@ -898,6 +899,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8600819055332195702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8760857708144843122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68c9601654b26204d8c2ee5fe6fa97a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
 --- !u!1001 &1513902069408793209
 PrefabInstance:
   m_ObjectHideFlags: 0
