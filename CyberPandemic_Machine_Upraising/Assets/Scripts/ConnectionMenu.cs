@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
-
+using UnityEditor;
 
 public class ConnectionMenu : MonoBehaviour
 {
@@ -13,6 +13,23 @@ public class ConnectionMenu : MonoBehaviour
     [SerializeField] private GameObject creditsPanel;
     [SerializeField] private GameObject playerHud;
 
+    //verificar se esta em game ou no menu
+    [SerializeField] public GameObject Menu;
+    [SerializeField] public GameObject Pause;
+    [SerializeField] public GameObject Guide;
+
+
+    //informa se esta em jogo ou não.
+    public bool startGame;
+
+   
+   
+
+    private void Update()
+    {
+        OpenPause();
+    }
+   
 
 
 
@@ -21,6 +38,8 @@ public class ConnectionMenu : MonoBehaviour
       
         NetworkManager.Singleton.StartClient();
         playerHud.SetActive(true);
+        startGame = true;
+
 
     }
 
@@ -30,6 +49,7 @@ public class ConnectionMenu : MonoBehaviour
       
         NetworkManager.Singleton.StartHost();
         playerHud.SetActive(true);
+        startGame = true;
     }
 
     public void OpenCredits()
@@ -47,6 +67,48 @@ public class ConnectionMenu : MonoBehaviour
 
     }
 
+    
+    //PAUSE
+    public void OpenPause()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+
+            if (!Menu.activeSelf && !Pause.activeSelf)
+            {
+
+                Pause.SetActive(true);
+
+
+
+            }
+            else
+            {
+
+                Pause.SetActive(false);
+
+            }
+
+
+
+
+
+        }
+    }
+
+    public void ClosePause()
+    {
+        Pause.SetActive(false);
+        
+    }
+
+    public void BackMenu()
+    {
+        
+        Pause.SetActive(false);
+        Menu.SetActive(true);
+    }
+
 
     public void QuitGame()
     {
@@ -54,8 +116,19 @@ public class ConnectionMenu : MonoBehaviour
         Application.Quit();
     }
 
+    public void OpenGuide()
+    {
+        Guide.SetActive(true);
+        Pause.SetActive(false);
+
+    }
    
-    
+    public void CloseGuide()
+    {
+        Guide.SetActive(false);
+        Pause.SetActive(true);
+    }
+  
 
 
 

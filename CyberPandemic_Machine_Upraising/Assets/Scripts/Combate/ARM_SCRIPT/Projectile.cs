@@ -41,16 +41,25 @@ public class Projectile : NetworkBehaviour
    {
         if (col.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Colidiu com o Inimigo");
+            
             // Verifica se o objeto atingido tem um componente HealthSystem
             HealthSystem healthSystem = col.GetComponent<FlyingEnemy>().healthSystem;
             
             if (healthSystem != null)
             {
-                // Causa dano ao jogador
+                // Causa dano ao inimigo
                 healthSystem.TakeDamage(damageAmount);
-                Debug.Log("Levou Dano Inimigo");
+                
+                //chama a funcao PegouScorePoints do PlayerMovement do jogador que atirou
+                PlayerMovement playerMovement = col.GetComponentInParent<PlayerMovement>();
+                if (playerMovement != null)
+                {
+                    playerMovement.PegouScorepoints();
+                }
+
             }
+            
+            
 
             // Destroi o projétil após atingir o jogador
             Destroy(gameObject);

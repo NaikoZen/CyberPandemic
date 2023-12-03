@@ -13,6 +13,9 @@ public class FlyingEnemy : NetworkBehaviour
     [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform firingPoint; // Novo: Ponto de disparo relativo ao inimigo
 
+
+   
+
     private float timeSinceLastShot = 0f;
 
     void Update()
@@ -91,4 +94,28 @@ public class FlyingEnemy : NetworkBehaviour
             timeSinceLastShot = 0f;
         }
     }
+
+    //sobre o Score -----------
+    private void Start()
+    {
+        //inscreve-se no evento OnDied do HealthSystem
+        healthSystem.OnDied += HandleEnemyDied;
+    }
+
+    void HandleEnemyDied()
+    {
+
+        //chama a funcao PegouScorePoints do PlayerMovement.
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        PlayerMovement playerMovement = player.GetComponent<PlayerMovement>();
+        if (playerMovement != null )
+        {
+            playerMovement.PegouScorepoints();
+        }
+
+    }
+
+
+
+
 }

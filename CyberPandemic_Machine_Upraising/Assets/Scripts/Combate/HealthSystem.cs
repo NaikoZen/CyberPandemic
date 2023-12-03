@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 public class HealthSystem : NetworkBehaviour
 {
-    [SerializeField] private int maxHealth = 10;
+    [SerializeField] public int maxHealth = 10;
 
     private int currentHealth;
 
@@ -21,7 +21,7 @@ public class HealthSystem : NetworkBehaviour
 
     public void TakeDamage(int damage)
     {   
-        Debug.Log("TakeDamage");
+        //Debug.Log("TakeDamage");
         if (!IsClient)
             return;
 
@@ -36,14 +36,26 @@ public class HealthSystem : NetworkBehaviour
         // Verifica se o objeto foi destruído
         if (currentHealth == 0)
         {
+            
             Die();
         }
     }
 
-    private void Die()
+    //evento para informar que um objeto Morreu.
+    public event System.Action OnDied;
+
+    public void Die()
     {
+
         // Adicione qualquer lógica adicional de morte aqui
         // Por exemplo, desativar o GameObject, reproduzir uma animação de morte, etc.
         gameObject.SetActive(false);
+        OnDied?.Invoke();
+        
     }
+
+    
+
+
+
 }
