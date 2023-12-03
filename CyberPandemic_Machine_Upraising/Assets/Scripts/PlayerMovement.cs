@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using Cinemachine;
+using UnityEditor;
+using Unity.VisualScripting;
+using TMPro;
 
 public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] public HealthSystem healthSystem;
     public GameObject animation01;
     public GameObject animation02;
+    public GameObject animation03;
+
+    [SerializeField] GameObject projectilePrefab;
     // public Animator anim;
+
     // public float speed;
     public float jumpForce;
 
@@ -17,10 +24,15 @@ public class PlayerMovement : NetworkBehaviour
     public bool doubleJump;
 
     public bool IsMoving;
-  
+
 
     // public int vidaMaxima;
     // public float vidaAtual;
+
+    //pontos pro player
+    public int scorepoints;
+    public TMP_Text scorepoints_text;
+
 
     private Rigidbody rb;
 
@@ -67,19 +79,13 @@ public class PlayerMovement : NetworkBehaviour
 
     void Update()
     {
+       
         Move();
-             
-         if (IsMoving)
-        {
-            animation01.SetActive(false);
-            animation02.SetActive(true);
-        }
-        else
-        {
-            animation01.SetActive(true);
-            animation02.SetActive(false);
-        }
-    
+
+        AttAnimation();
+
+        AttScore();
+
         Jump();
         y = rb.velocity.y;
     
@@ -89,6 +95,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (IsOwner)
         {
+           
             float h = Input.GetAxis("Horizontal") * Time.deltaTime * 5f;
             // float v = Input.GetAxis("Vertical") * Time.deltaTime * 5f;
             
@@ -159,5 +166,74 @@ public class PlayerMovement : NetworkBehaviour
        
 
     }
+
+    //animacoes
+
+    public void AttAnimation()
+    {
+        if (IsMoving && !isJumping)
+        {
+            animation01.SetActive(false);
+            animation02.SetActive(true);
+            animation03.SetActive(false);
+        }
+        if (!IsMoving && !isJumping)
+        {
+            animation01.SetActive(true);
+            animation02.SetActive(false);
+            animation03.SetActive(false);
+        }
+        if (isJumping && IsMoving)
+        {
+            animation03.SetActive(true);
+            animation02.SetActive(false);
+            animation01.SetActive(false);
+        }
+        if (isJumping && !IsMoving)
+        {
+            animation03.SetActive(true);
+            animation02.SetActive(false);
+            animation01.SetActive(false);
+        }
+    }
+
+    //SCORES
+
+
+    public void PegouScorepoints()
+    {
+        if (IsLocalPlayer)
+        {
+            
+            scorepoints++;
+            AttScore();
+            Debug.Log($"Player {NetworkObjectId} marcou pontos!");
+        }
+        
+    }
+
+
+    //score points after death
+    public void ScoretoPlayer()
+    {
+        HealthSystem propriaVida = GetComponent<HealthSystem>();
+        if (propriaVida.maxHealth > 0)
+        {
+            PegouScorepoints();
+            AttScore();
+           
+        }
+
+    }
+    public void AttScore()
+    {
+        //Debug.Log("tome ponto");
+        //scorepoints_text.text = scorepoints.ToString();
+    }
+
+
+
+
+
 }
 
