@@ -19,6 +19,7 @@ public class ConnectionMenu : MonoBehaviour
     [SerializeField] public GameObject Guide;
     [SerializeField] public GameObject Vitoria;
     [SerializeField] public GameObject Derrota;
+    [SerializeField] public GameObject preScreen;
 
 
     //informa se esta em jogo ou n�o.
@@ -38,7 +39,7 @@ public class ConnectionMenu : MonoBehaviour
     public void ConectarCliente()
     {
       
-        NetworkManager.Singleton.StartClient();
+         NetworkManager.Singleton.StartClient();
         playerHud.SetActive(true);
         startGame = true;
 
@@ -131,6 +132,8 @@ public class ConnectionMenu : MonoBehaviour
         Pause.SetActive(true);
     }
   
+
+    
 
 
 
