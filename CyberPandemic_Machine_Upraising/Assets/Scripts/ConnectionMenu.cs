@@ -17,9 +17,11 @@ public class ConnectionMenu : MonoBehaviour
     [SerializeField] public GameObject Menu;
     [SerializeField] public GameObject Pause;
     [SerializeField] public GameObject Guide;
+    [SerializeField] public GameObject Vitoria;
+    [SerializeField] public GameObject Derrota;
 
 
-    //informa se esta em jogo ou não.
+    //informa se esta em jogo ou nï¿½o.
     public bool startGame;
 
    
