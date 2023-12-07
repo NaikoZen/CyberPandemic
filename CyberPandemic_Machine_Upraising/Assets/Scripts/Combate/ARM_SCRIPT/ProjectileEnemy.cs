@@ -40,7 +40,7 @@ public class ProjectileEnemy : NetworkBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log(col.name);
+        //Debug.Log(col.name);
         if (col.gameObject.CompareTag("Player"))
         {  
             // Verifica se o objeto atingido tem um componente HealthSystem
@@ -50,15 +50,15 @@ public class ProjectileEnemy : NetworkBehaviour
             {
                 // Causa dano ao jogador
                 healthSystem.TakeDamage(damageAmount);
-                Debug.Log("Levou Dano Jogador");
+                //Debug.Log("Levou Dano Jogador");
             }
 
-            // Destroi o projétil após atingir o jogador
+            // Destroi o projï¿½til apï¿½s atingir o jogador
             Destroy(gameObject);
         }
         else if (col.gameObject.CompareTag("Untagged"))
         {
-            // Destroi o projétil se atingir algo não identificado
+            // Destroi o projï¿½til se atingir algo nï¿½o identificado
             Destroy(gameObject);
         }
     }
