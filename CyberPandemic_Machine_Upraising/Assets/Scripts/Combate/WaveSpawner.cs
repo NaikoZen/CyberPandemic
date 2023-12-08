@@ -99,6 +99,7 @@ public class WaveSpawner : NetworkBehaviour
         waveCountdown = timeBetweenWaves;
         if (nextWave + 1 > waves.Length - 1)
         {
+
             nextWave = 0;
             Debug.Log("all waves complete looping...");
         }
