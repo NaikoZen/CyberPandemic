@@ -46,7 +46,16 @@ public class HealthSystem : NetworkBehaviour
 
     public void Die()
     {
-
+        // Verifique se o objeto tem a tag "Player"
+        if (gameObject.CompareTag("Player"))
+        {
+            // Adicione este código apenas se a tag for "Player"
+            ConnectionMenu gameManager = FindObjectOfType<ConnectionMenu>();
+            if (gameManager != null)
+            {
+                gameManager.Derrota();
+            }
+        }
         // Adicione qualquer lógica adicional de morte aqui
         // Por exemplo, desativar o GameObject, reproduzir uma animação de morte, etc.
         gameObject.SetActive(false);

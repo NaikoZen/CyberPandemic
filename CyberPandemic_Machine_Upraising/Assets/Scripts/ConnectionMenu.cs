@@ -18,7 +18,7 @@ public class ConnectionMenu : MonoBehaviour
     [SerializeField] public GameObject Pause;
     [SerializeField] public GameObject Guide;
     [SerializeField] public GameObject Vitoria;
-    [SerializeField] public GameObject Derrota;
+    [SerializeField] public GameObject derrota;
     [SerializeField] public GameObject preScreen;
 
 
@@ -132,7 +132,34 @@ public class ConnectionMenu : MonoBehaviour
         Pause.SetActive(true);
     }
   
+    public void Derrota()
+    {
+        // Ative a tela de game over quando o jogador morrer
+        
+            derrota.SetActive(true);
+    }
 
+    public void WaveCompleta()
+    {
+        // Ative a tela de game over quando o jogador morrer
+        
+            Vitoria.SetActive(true);
+            // Desativa a tela de vitória após 4 segundos
+            Invoke("DesativarTelaVitoria", 4f);
+    }
+
+    private void DesativarTelaVitoria()
+    {
+
+    Vitoria.SetActive(false);
+
+    }
+
+    public void RestartScene()
+    {
+        // Reinicie a cena quando o botão for clicado
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
     
 
 

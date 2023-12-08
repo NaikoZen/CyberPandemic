@@ -60,7 +60,7 @@ public class WaveSpawner : NetworkBehaviour
         {
             if (!EnemyIsAlive())
             {
-
+                
                 WaveCompleted();
             }
             return;
@@ -94,9 +94,15 @@ public class WaveSpawner : NetworkBehaviour
     void WaveCompleted()
     {
         Debug.Log("Wave Completada!");
-
+        ConnectionMenu gameManager = FindObjectOfType<ConnectionMenu>();
         state = SpawnState.COUNTING;
         waveCountdown = timeBetweenWaves;
+
+          if (gameManager != null)
+            {
+                gameManager.WaveCompleta();
+            }
+
         if (nextWave + 1 > waves.Length - 1)
         {
 
@@ -112,7 +118,7 @@ public class WaveSpawner : NetworkBehaviour
     }
 
 
-    //verifica se os inimigos estão vivos, para comecar outra wave.
+    //verifica se os inimigos estï¿½o vivos, para comecar outra wave.
     bool EnemyIsAlive()
     {
         searchCountdown -= Time.deltaTime;
@@ -165,7 +171,7 @@ public class WaveSpawner : NetworkBehaviour
         // Spawn do inimigo usando NetworkObject
         NetworkObject networkObject = Instantiate(enemyPrefab, spawnPosition, spawnRotation);
 
-        // Verifica se a instância não é nula e a spawna na rede
+        // Verifica se a instï¿½ncia nï¿½o ï¿½ nula e a spawna na rede
         if (networkObject != null)
             networkObject.Spawn();
     }
