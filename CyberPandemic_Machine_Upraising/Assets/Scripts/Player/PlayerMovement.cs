@@ -9,10 +9,13 @@ using TMPro;
 
 public class PlayerMovement : NetworkBehaviour
 {
+   
+
     [SerializeField] public HealthSystem healthSystem;
     public GameObject animation01;
     public GameObject animation02;
     public GameObject animation03;
+    
 
     [SerializeField] GameObject projectilePrefab;
     // public Animator anim;
@@ -39,6 +42,14 @@ public class PlayerMovement : NetworkBehaviour
     float x, y;
     private float maxYvel;
     public Transform personalCamera; //referencia da camera.
+
+
+    public GameObject vida_Sprite_01;
+    public GameObject vida_Sprite_02;
+    public GameObject vida_Sprite_03;
+    public GameObject vida_Sprite_04;
+    public GameObject vida_Sprite_05;
+
 
     private void Awake()
     {
@@ -81,13 +92,16 @@ public class PlayerMovement : NetworkBehaviour
     {
        
         Move();
+        
+        Jump();
+        y = rb.velocity.y;
 
         AttAnimation();
 
+        AttPlayerLife();
+
         AttScore();
 
-        Jump();
-        y = rb.velocity.y;
     
 
     }
@@ -122,10 +136,12 @@ public class PlayerMovement : NetworkBehaviour
         if (IsOwner)
         {
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.W))
             {
+                
                 if (!isJumping)
                 {
+                   
                     //audioS.clip = Sounds[0];
                     //audioS.Play();
                     rb.AddForce(new Vector2(0f, jumpForce), ForceMode.Impulse);
@@ -225,12 +241,72 @@ public class PlayerMovement : NetworkBehaviour
         }
 
     }
-    public void AttScore()
+    public void AttPlayerLife()
     {
-        //Debug.Log("tome ponto");
-        //scorepoints_text.text = scorepoints.ToString();
+        if (IsLocalPlayer)
+        {
+
+            HealthSystem propriaVida = GetComponent<HealthSystem>();
+            if (propriaVida.CurrentHealth == 10)
+            {
+                vida_Sprite_05.SetActive(true);
+                vida_Sprite_04.SetActive(false);
+                vida_Sprite_03.SetActive(false);
+                vida_Sprite_02.SetActive(false);
+                vida_Sprite_01.SetActive(false);
+
+            }
+            if (propriaVida.CurrentHealth < 10 && propriaVida.CurrentHealth > 7)
+            {
+                vida_Sprite_05.SetActive(false);
+                vida_Sprite_04.SetActive(true);
+                vida_Sprite_03.SetActive(false);
+                vida_Sprite_02.SetActive(false);
+                vida_Sprite_01.SetActive(false);
+            }
+            if (propriaVida.CurrentHealth < 8 && propriaVida.CurrentHealth > 5)
+            {
+                vida_Sprite_05.SetActive(false);
+                vida_Sprite_04.SetActive(false);
+                vida_Sprite_03.SetActive(true);
+                vida_Sprite_02.SetActive(false);
+                vida_Sprite_01.SetActive(false);
+
+            }
+            if (propriaVida.CurrentHealth < 6 && propriaVida.CurrentHealth > 3)
+            {
+                vida_Sprite_05.SetActive(false);
+                vida_Sprite_04.SetActive(false);
+                vida_Sprite_03.SetActive(false);
+                vida_Sprite_02.SetActive(true);
+                vida_Sprite_01.SetActive(false);
+
+            }
+            if (propriaVida.CurrentHealth < 4 && propriaVida.CurrentHealth > 1)
+            {
+                vida_Sprite_05.SetActive(false);
+                vida_Sprite_04.SetActive(false);
+                vida_Sprite_03.SetActive(false);
+                vida_Sprite_02.SetActive(false);
+                vida_Sprite_01.SetActive(true);
+
+            }
+        }
+        if (!IsLocalPlayer)
+        {
+            vida_Sprite_05.SetActive(false);
+            vida_Sprite_04.SetActive(false);
+            vida_Sprite_03.SetActive(false);
+            vida_Sprite_02.SetActive(false);
+            vida_Sprite_01.SetActive(false);
+        }
     }
 
+    public void AttScore()
+    {
+        Debug.Log("tome ponto");
+        scorepoints_text.text = scorepoints.ToString();
+    }
 
 
 
