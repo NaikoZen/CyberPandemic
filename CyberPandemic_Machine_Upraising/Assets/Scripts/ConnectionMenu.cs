@@ -21,6 +21,7 @@ public class ConnectionMenu : NetworkBehaviour
     [SerializeField] public GameObject Vitoria;
     [SerializeField] public GameObject derrota;
     [SerializeField] public GameObject preScreen;
+    [SerializeField] public GameObject scores_Finals;
 
 
     //SCORE -> volta a zero.
@@ -151,6 +152,8 @@ public class ConnectionMenu : NetworkBehaviour
         // Ative a tela de game over quando o jogador morrer
 
         derrota.SetActive(true);
+        Invoke("DesativarTelaDerrota", 4f);
+        Invoke("Ativar_Scores_Finals", 4f);
     }
 
     public void WaveCompleta()
@@ -167,6 +170,16 @@ public class ConnectionMenu : NetworkBehaviour
 
         Vitoria.SetActive(false);
 
+    }
+
+    public void DesativarTelaDerrota()
+    {
+        derrota.SetActive(false);
+    }
+    public void Ativar_Scores_Finals()
+    {
+        
+        scores_Finals.SetActive(true);
     }
 
     public void RestartScene()
