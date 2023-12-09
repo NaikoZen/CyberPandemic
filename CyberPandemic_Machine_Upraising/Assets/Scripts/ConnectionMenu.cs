@@ -4,8 +4,9 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using Unity.Networking.Transport;
 
-public class ConnectionMenu : MonoBehaviour
+public class ConnectionMenu : NetworkBehaviour
 {
 
     //Script do Menu - Botoes e suas funcionalidades...
@@ -22,26 +23,37 @@ public class ConnectionMenu : MonoBehaviour
     [SerializeField] public GameObject preScreen;
 
 
+    //SCORE -> volta a zero.
+    private scoreManager scoreManager;
+
+
     //informa se esta em jogo ou n�o.
     public bool startGame;
 
-   
-   
+    private void Start()
+    {
+        scoreManager = FindObjectOfType<scoreManager>();
+    }
+
+
 
     private void Update()
     {
         OpenPause();
     }
-   
+
 
 
 
     public void ConectarCliente()
     {
-      
-         NetworkManager.Singleton.StartClient();
+
+        NetworkManager.Singleton.StartClient();
         playerHud.SetActive(true);
         startGame = true;
+        scoreManager.scoreCount = 0;
+
+        Debug.Log($"Player {NetworkObjectId} Entrou");
 
 
     }
@@ -49,10 +61,12 @@ public class ConnectionMenu : MonoBehaviour
 
     public void ConectarHost()
     {
-      
+
         NetworkManager.Singleton.StartHost();
         playerHud.SetActive(true);
         startGame = true;
+        scoreManager.scoreCount = 0;
+        Debug.Log($"Player {NetworkObjectId} é o Dono da Partida ");
     }
 
     public void OpenCredits()
@@ -70,7 +84,7 @@ public class ConnectionMenu : MonoBehaviour
 
     }
 
-    
+
     //PAUSE
     public void OpenPause()
     {
@@ -102,14 +116,14 @@ public class ConnectionMenu : MonoBehaviour
     public void ClosePause()
     {
         Pause.SetActive(false);
-        
+
     }
 
     public void BackMenu()
     {
-        
         Pause.SetActive(false);
         Menu.SetActive(true);
+        RestartScene();
     }
 
 
@@ -125,42 +139,43 @@ public class ConnectionMenu : MonoBehaviour
         Pause.SetActive(false);
 
     }
-   
+
     public void CloseGuide()
     {
         Guide.SetActive(false);
         Pause.SetActive(true);
     }
-  
+
     public void Derrota()
     {
         // Ative a tela de game over quando o jogador morrer
-        
-            derrota.SetActive(true);
+
+        derrota.SetActive(true);
     }
 
     public void WaveCompleta()
     {
         // Ative a tela de game over quando o jogador morrer
-        
-            Vitoria.SetActive(true);
-            // Desativa a tela de vitória após 4 segundos
-            Invoke("DesativarTelaVitoria", 4f);
+
+        Vitoria.SetActive(true);
+        // Desativa a tela de vitória após 4 segundos
+        Invoke("DesativarTelaVitoria", 4f);
     }
 
     private void DesativarTelaVitoria()
     {
 
-    Vitoria.SetActive(false);
+        Vitoria.SetActive(false);
 
     }
 
     public void RestartScene()
     {
         // Reinicie a cena quando o botão for clicado
+        NetworkManager.Singleton.DisconnectClient(OwnerClientId);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    
+
 
 
 
