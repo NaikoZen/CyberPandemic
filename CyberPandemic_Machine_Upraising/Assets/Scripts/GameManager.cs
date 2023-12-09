@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
+    //SCORES
+   
+
     //TIMER
     public float timer;
     public TMP_Text timerText;
@@ -13,7 +17,7 @@ public class GameManager : MonoBehaviour
     {
         AttTimer();
         GameplayVerify();
-
+        
     }
 
     //verifica se o startGame e true no connectionMenu -> se for true entao esta em game.
@@ -37,4 +41,7 @@ public class GameManager : MonoBehaviour
         int milliseconds = Mathf.FloorToInt((timer * 100) % 100);
         timerText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
     }
+
+
+  
 }

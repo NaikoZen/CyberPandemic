@@ -9,13 +9,14 @@ using TMPro;
 
 public class PlayerMovement : NetworkBehaviour
 {
-   
+
+
 
     [SerializeField] public HealthSystem healthSystem;
     public GameObject animation01;
     public GameObject animation02;
     public GameObject animation03;
-    
+
 
     [SerializeField] GameObject projectilePrefab;
     // public Animator anim;
@@ -69,10 +70,10 @@ public class PlayerMovement : NetworkBehaviour
 
     void Start()
     {
-                                        
+
 
         rb = GetComponent<Rigidbody>();
-        
+
     }
     public override void OnNetworkSpawn()   //metodo executado quando o objeto � criado.
     {
@@ -90,9 +91,9 @@ public class PlayerMovement : NetworkBehaviour
 
     void Update()
     {
-       
+
         Move();
-        
+
         Jump();
         y = rb.velocity.y;
 
@@ -100,19 +101,19 @@ public class PlayerMovement : NetworkBehaviour
 
         AttPlayerLife();
 
-        AttScore();
+        //AttScore();
 
-    
+
 
     }
     void Move()
     {
         if (IsOwner)
         {
-           
+
             float h = Input.GetAxis("Horizontal") * Time.deltaTime * 5f;
             // float v = Input.GetAxis("Vertical") * Time.deltaTime * 5f;
-            
+
 
             if (Mathf.Abs(h) > 0.01f)
             {
@@ -125,9 +126,9 @@ public class PlayerMovement : NetworkBehaviour
             transform.Translate(new Vector3(h, 0, 0));
 
         }
-      
-        
-       
+
+
+
 
     }
 
@@ -138,10 +139,10 @@ public class PlayerMovement : NetworkBehaviour
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                
+
                 if (!isJumping)
                 {
-                   
+
                     //audioS.clip = Sounds[0];
                     //audioS.Play();
                     rb.AddForce(new Vector2(0f, jumpForce), ForceMode.Impulse);
@@ -179,7 +180,7 @@ public class PlayerMovement : NetworkBehaviour
             isJumping = true;
         }
 
-       
+
 
     }
 
@@ -220,12 +221,12 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (IsLocalPlayer)
         {
-            
-            scorepoints++;
-            AttScore();
+            scoreManager.scoreCount++;
+            //scorepoints++;
+            //AttScore();
             Debug.Log($"Player {NetworkObjectId} marcou pontos!");
         }
-        
+
     }
 
 
@@ -236,8 +237,8 @@ public class PlayerMovement : NetworkBehaviour
         if (propriaVida.maxHealth > 0)
         {
             PegouScorepoints();
-            AttScore();
-           
+            //AttScore();
+
         }
 
     }
@@ -302,11 +303,11 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
-    public void AttScore()
-    {
-        Debug.Log("tome ponto");
-        scorepoints_text.text = scorepoints.ToString();
-    }
+    // public void AttScore()
+    // {
+    //    Debug.Log("tome ponto");
+    //    scorepoints_text.text = scorepoints.ToString();
+    //}
 
 
 
