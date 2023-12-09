@@ -303,11 +303,7 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
-    // public void AttScore()
-    // {
-    //    Debug.Log("tome ponto");
-    //    scorepoints_text.text = scorepoints.ToString();
-    //}
+   
 
 
 
