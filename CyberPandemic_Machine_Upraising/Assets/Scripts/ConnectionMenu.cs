@@ -54,7 +54,7 @@ public class ConnectionMenu : NetworkBehaviour
         startGame = true;
         scoreManager.scoreCount = 0;
 
-        Debug.Log($"Player {NetworkObjectId} Entrou");
+        Debug.Log($"Player {NetworkManager.Singleton.LocalClientId} Entrou");
 
 
     }
@@ -67,7 +67,7 @@ public class ConnectionMenu : NetworkBehaviour
         playerHud.SetActive(true);
         startGame = true;
         scoreManager.scoreCount = 0;
-        Debug.Log($"Player {NetworkObjectId} é o Dono da Partida ");
+        Debug.Log($"Player {NetworkManager.Singleton.LocalClientId} é o Dono da Partida ");
     }
 
     public void OpenCredits()

@@ -86,6 +86,19 @@ public class PlayerMovement : NetworkBehaviour
         {
             vcam.Priority = 0;
         }
+
+        base.OnNetworkSpawn();
+
+        // Verifica se é o dono do jogador antes de instanciar a Skin
+        if (IsOwner)
+        {
+            // Obter o ID do proprietário do jogador atual
+            ulong currentOwnerId = OwnerClientId;
+
+            // Faça algo com o ID do proprietário, por exemplo, imprimir no console
+            Debug.Log($"Jogador com ID {currentOwnerId} entrou no jogo");
+        }
+
     }
 
 
@@ -104,6 +117,9 @@ public class PlayerMovement : NetworkBehaviour
         //AttScore();
 
 
+        
+
+        
 
     }
     void Move()
@@ -224,7 +240,7 @@ public class PlayerMovement : NetworkBehaviour
             scoreManager.scoreCount++;
             //scorepoints++;
             //AttScore();
-            Debug.Log($"Player {NetworkObjectId} marcou pontos!");
+            Debug.Log($"Player {OwnerClientId + 1} marcou pontos!");
         }
 
     }
@@ -303,10 +319,25 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
-   
 
 
 
+    private NetworkObject GetPlayerObjectByPlayerID(ulong playerID)
+    {
+        // Obter todos os NetworkObjects no servidor
+        NetworkObject[] allNetworkObjects = FindObjectsOfType<NetworkObject>();
+
+        // Procurar o NetworkObject pelo PlayerID
+        foreach (NetworkObject networkObject in allNetworkObjects)
+        {
+            if (networkObject.NetworkObjectId == playerID)
+            {
+                return networkObject;
+            }
+        }
+
+        return null; // Retorna null se não encontrar nenhum jogador com o PlayerID especificado
+    }
 
 }
 
