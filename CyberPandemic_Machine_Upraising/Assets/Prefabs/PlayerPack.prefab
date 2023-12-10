@@ -1401,6 +1401,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68c9601654b26204d8c2ee5fe6fa97a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalMaterial: {fileID: -6478536213147159724, guid: 6c0707bf02531de408f76a9c756a1422, type: 3}
+  flashMaterial: {fileID: -876546973899608171, guid: 632c6f05237e4694ebb567c4a98172b6, type: 3}
+  entidadeRenderer: {fileID: 2886796688658413006}
   maxHealth: 10
 --- !u!114 &7551710988281495269
 MonoBehaviour:
