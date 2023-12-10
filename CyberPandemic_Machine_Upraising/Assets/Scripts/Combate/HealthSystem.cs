@@ -6,9 +6,9 @@ using Unity.Netcode;
 public class HealthSystem : NetworkBehaviour
 {   
 
-    public Material normalMaterial;
-    public Material flashMaterial;
-    public Renderer entidadeRenderer;
+    //public Material normalMaterial;
+   // public Material flashMaterial;
+    //public Renderer entidadeRenderer;
     [SerializeField] public int maxHealth = 10;
 
     private int currentHealth;
@@ -21,17 +21,17 @@ public class HealthSystem : NetworkBehaviour
     {
         currentHealth = maxHealth;
 
-        if (entidadeRenderer == null)
-        {
+        //if (entidadeRenderer == null)
+       // {
             // Se o renderer não estiver atribuído, tenta encontrar um na hierarquia
-            entidadeRenderer = GetComponent<Renderer>();
-        }
+           // entidadeRenderer = GetComponent<Renderer>();
+       // }
 
     }
 
     public void TakeDamage(int damage)
     {   
-        StartCoroutine(FlashWhite());
+       // StartCoroutine(FlashWhite());
         // Lógica adicional de lidar com o dano do inimigo aqui
 
         //Debug.Log("TakeDamage");
@@ -78,17 +78,17 @@ public class HealthSystem : NetworkBehaviour
         
     }
 
-     IEnumerator FlashWhite()
-    {
+    // IEnumerator FlashWhite()
+    //{
         // Troca o material para o material de flash
-        entidadeRenderer.material = flashMaterial;
+       //entidadeRenderer.material = flashMaterial;
 
         // Aguarda por um curto período de tempo
-        yield return new WaitForSeconds(0.1f);
+        //yield return new WaitForSeconds(0.1f);
 
         // Retorna ao material normal
-        entidadeRenderer.material = normalMaterial;
-    }
+        //entidadeRenderer.material = normalMaterial;
+    //
 
 
 }
