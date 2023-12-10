@@ -235,12 +235,13 @@ public class PlayerMovement : NetworkBehaviour
 
     public void PegouScorepoints()
     {
-        if (IsLocalPlayer)
+        if (IsOwner)
         {
+            
             scoreManager.scoreCount++;
             //scorepoints++;
             //AttScore();
-            Debug.Log($"Player {OwnerClientId + 1} marcou pontos!");
+            Debug.Log($"Player {NetworkManager.Singleton.LocalClientId} marcou pontos!");
         }
 
     }
