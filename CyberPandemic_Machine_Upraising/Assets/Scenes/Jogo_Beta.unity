@@ -1783,22 +1783,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4205b03b34e592248961fa21524c6707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreCountPlayer01:
-    m_InternalValue: 0
-  hiScoreCountPlayer01:
-    m_InternalValue: 0
-  scoreCountPlayer02:
-    m_InternalValue: 0
-  hiScoreCountPlayer02:
-    m_InternalValue: 0
-  scoreCountPlayer03:
-    m_InternalValue: 0
-  hiScoreCountPlayer03:
-    m_InternalValue: 0
-  scoreCountPlayer04:
-    m_InternalValue: 0
-  hiScoreCountPlayer04:
-    m_InternalValue: 0
   scoreText_Player01: {fileID: 207136841}
   scoreText_Player02: {fileID: 1250081738}
   scoreText_Player03: {fileID: 187196603}
@@ -1807,8 +1791,6 @@ MonoBehaviour:
   hiScoreTextPlayer02: {fileID: 188928986}
   hiScoreTextPlayer03: {fileID: 1132952255}
   hiScoreTextPlayer04: {fileID: 1946155331}
-  scoreText: {fileID: 0}
-  hiScoreText: {fileID: 0}
 --- !u!114 &305330621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8958,7 +8940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6960e84d07fb87f47956e7a81d71c4e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ProtocolType: 0
+  m_ProtocolType: 1
   m_MaxPacketQueueSize: 128
   m_MaxPayloadSize: 6144
   m_HeartbeatTimeoutMS: 500
