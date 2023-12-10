@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using Unity.Netcode;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     //SCORES
    
@@ -42,6 +43,12 @@ public class GameManager : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}:{2:00}", minutes, seconds, milliseconds);
     }
 
-
+    public void IsDied()
+    {
+        // Obter todos os NetworkObjects no servidor
+        NetworkObject[] allNetworkObjects = FindObjectsOfType<NetworkObject>();
+        HealthSystem healthSystem = GetComponent<HealthSystem>();
+       
+    }
   
 }

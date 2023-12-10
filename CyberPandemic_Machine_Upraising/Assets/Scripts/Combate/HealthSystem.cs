@@ -59,7 +59,9 @@ public class HealthSystem : NetworkBehaviour
         // Adicione qualquer lógica adicional de morte aqui
         // Por exemplo, desativar o GameObject, reproduzir uma animação de morte, etc.
         gameObject.SetActive(false);
+        
         OnDied?.Invoke();
+      
         
     }
 
