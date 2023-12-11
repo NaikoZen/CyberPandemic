@@ -39,15 +39,21 @@ public class FlyingEnemy : NetworkBehaviour
     }
 
     [ClientRpc]
-    void MoveTowardsPlayerClientRpc()
-    {
-        // Encontra os jogadores na cena
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+     void MoveTowardsPlayerClientRpc()
+{
+    // Encontra os jogadores na cena
+    GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        // Move em direção ao primeiro jogador encontrado (pode ser expandido para selecionar o jogador mais próximo)
-        if (players.Length > 0)
+    // Verifica se há jogadores na cena
+    if (players.Length > 0)
+    {
+        // Encontra o jogador mais próximo
+        GameObject closestPlayer = FindClosestPlayer(players);
+
+        if (closestPlayer != null)
         {
-            Vector3 playerPosition = players[0].transform.position;
+            // Move em direção ao jogador mais próximo
+            Vector3 playerPosition = closestPlayer.transform.position;
             transform.position = Vector3.MoveTowards(transform.position, playerPosition, moveSpeed * Time.deltaTime);
 
             // Rotaciona em direção ao jogador
@@ -56,6 +62,27 @@ public class FlyingEnemy : NetworkBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
     }
+}
+
+// Função para encontrar o jogador mais próximo
+GameObject FindClosestPlayer(GameObject[] players)
+{
+    GameObject closestPlayer = null;
+    float closestDistance = Mathf.Infinity;
+    Vector3 currentPosition = transform.position;
+
+    foreach (GameObject player in players)
+    {
+        float distance = Vector3.Distance(player.transform.position, currentPosition);
+        if (distance < closestDistance)
+        {
+            closestPlayer = player;
+            closestDistance = distance;
+        }
+    }
+
+    return closestPlayer;
+}
 
     [ServerRpc]
     public void ShootAtPlayersServerRpc(Vector3 shooterPosition)
