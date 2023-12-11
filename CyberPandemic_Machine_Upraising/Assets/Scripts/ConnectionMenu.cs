@@ -34,6 +34,7 @@ public class ConnectionMenu : NetworkBehaviour
     private void Start()
     {
         scoreManager = FindObjectOfType<scoreManager>();
+        startGame = true;
     }
 
 
@@ -49,7 +50,7 @@ public class ConnectionMenu : NetworkBehaviour
     public void ConectarCliente()
     {
 
-        NetworkManager.Singleton.StartClient();
+        
         playerHud.SetActive(true);
         startGame = true;
         scoreManager.scoreCount = 0;
@@ -63,7 +64,7 @@ public class ConnectionMenu : NetworkBehaviour
     public void ConectarHost()
     {
 
-        NetworkManager.Singleton.StartHost();
+       
         playerHud.SetActive(true);
         startGame = true;
         scoreManager.scoreCount = 0;
@@ -188,31 +189,16 @@ public class ConnectionMenu : NetworkBehaviour
         NetworkManager.Singleton.Shutdown();
         ulong playerID = NetworkManager.Singleton.LocalClientId;
 
-        // Remova o jogador
-        RemoverJogador(playerID);
+        
 
         // Reinicie a cena quando o botão for clicado
         NetworkManager.Singleton.DisconnectClient(OwnerClientId);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Lobby01");
 
 
     }
 
-    void RemoverJogador(ulong playerID)
-    {
-        // Adicione a lógica para remover o jogador aqui
-        // Use o método Despawn para remover o jogador da cena
-
-        // Obtém o objeto do jogador pelo ID
-        NetworkObject playerNetworkObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(playerID);
-
-        if (playerNetworkObject != null)
-        {
-            // Despawna o jogador
-            
-            playerNetworkObject.Despawn(true);
-        }
-    }
+   
 
 
 

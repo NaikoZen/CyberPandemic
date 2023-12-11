@@ -60,7 +60,7 @@ public class WaveSpawner : NetworkBehaviour
         {
             if (!EnemyIsAlive())
             {
-                
+
                 WaveCompleted();
             }
             return;
@@ -98,10 +98,10 @@ public class WaveSpawner : NetworkBehaviour
         state = SpawnState.COUNTING;
         waveCountdown = timeBetweenWaves;
 
-          if (gameManager != null)
-            {
-                gameManager.WaveCompleta();
-            }
+        if (gameManager != null)
+        {
+            gameManager.WaveCompleta();
+        }
 
         if (nextWave + 1 > waves.Length - 1)
         {

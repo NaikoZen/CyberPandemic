@@ -4,11 +4,12 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 using Unity.Netcode;
-
+using UnityEngine.SceneManagement;
 public class GameManager : NetworkBehaviour
 {
     //SCORES
-   
+
+    
 
     //TIMER
     public float timer;
@@ -18,7 +19,7 @@ public class GameManager : NetworkBehaviour
     {
         AttTimer();
         GameplayVerify();
-        
+
     }
 
     //verifica se o startGame e true no connectionMenu -> se for true entao esta em game.
@@ -28,14 +29,14 @@ public class GameManager : NetworkBehaviour
         if (cM.startGame == true)
         {
             timer += Time.deltaTime;
-            
+
         }
         else { return; }
     }
 
     public void AttTimer()
     {
-       
+
         timerText.text = timer.ToString();
         int minutes = Mathf.FloorToInt(timer / 60);
         int seconds = Mathf.FloorToInt(timer % 60);
@@ -48,7 +49,7 @@ public class GameManager : NetworkBehaviour
         // Obter todos os NetworkObjects no servidor
         NetworkObject[] allNetworkObjects = FindObjectsOfType<NetworkObject>();
         HealthSystem healthSystem = GetComponent<HealthSystem>();
-       
+
     }
-  
+
 }

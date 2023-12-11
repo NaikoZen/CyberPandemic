@@ -77,6 +77,7 @@ public class PlayerMovement : NetworkBehaviour
     }
     public override void OnNetworkSpawn()   //metodo executado quando o objeto � criado.
     {
+
         CinemachineVirtualCamera vcam = personalCamera.gameObject.GetComponent<CinemachineVirtualCamera>(); //acessando o componente da vcam.
         if (IsOwner) //se formos o dono deste objeto, a camera tem prioridade 1, se n�o, a camera tem prioridade 0.
         {
@@ -87,7 +88,12 @@ public class PlayerMovement : NetworkBehaviour
             vcam.Priority = 0;
         }
 
-        base.OnNetworkSpawn();
+       
+
+
+
+
+
 
         // Verifica se é o dono do jogador antes de instanciar a Skin
         if (IsOwner)
