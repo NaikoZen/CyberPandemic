@@ -189,8 +189,7 @@ public class ConnectionMenu : NetworkBehaviour
         NetworkManager.Singleton.Shutdown();
         ulong playerID = NetworkManager.Singleton.LocalClientId;
 
-        // Remova o jogador
-        RemoverJogador(playerID);
+        
 
         // Reinicie a cena quando o botão for clicado
         NetworkManager.Singleton.DisconnectClient(OwnerClientId);
@@ -199,21 +198,7 @@ public class ConnectionMenu : NetworkBehaviour
 
     }
 
-    void RemoverJogador(ulong playerID)
-    {
-        // Adicione a lógica para remover o jogador aqui
-        // Use o método Despawn para remover o jogador da cena
-
-        // Obtém o objeto do jogador pelo ID
-        NetworkObject playerNetworkObject = NetworkManager.Singleton.SpawnManager.GetPlayerNetworkObject(playerID);
-
-        if (playerNetworkObject != null)
-        {
-            // Despawna o jogador
-            
-            playerNetworkObject.Despawn(true);
-        }
-    }
+   
 
 
 
