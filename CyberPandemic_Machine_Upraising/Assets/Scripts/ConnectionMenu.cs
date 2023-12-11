@@ -34,6 +34,7 @@ public class ConnectionMenu : NetworkBehaviour
     private void Start()
     {
         scoreManager = FindObjectOfType<scoreManager>();
+        startGame = true;
     }
 
 
@@ -49,7 +50,7 @@ public class ConnectionMenu : NetworkBehaviour
     public void ConectarCliente()
     {
 
-        NetworkManager.Singleton.StartClient();
+        
         playerHud.SetActive(true);
         startGame = true;
         scoreManager.scoreCount = 0;
@@ -63,7 +64,7 @@ public class ConnectionMenu : NetworkBehaviour
     public void ConectarHost()
     {
 
-        NetworkManager.Singleton.StartHost();
+       
         playerHud.SetActive(true);
         startGame = true;
         scoreManager.scoreCount = 0;
@@ -193,7 +194,7 @@ public class ConnectionMenu : NetworkBehaviour
 
         // Reinicie a cena quando o botão for clicado
         NetworkManager.Singleton.DisconnectClient(OwnerClientId);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Lobby01");
 
 
     }
