@@ -7,18 +7,19 @@ public class MenuMusicController : MonoBehaviour
     public AudioClip[] menuMusicClips;
     private AudioSource audioSource;
     private List<AudioClip> recentlyPlayed;
+    // Ve se o esta em gamplay ou nao
+    private bool isGameplayStarted = false;
 
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         recentlyPlayed = new List<AudioClip>();
-        PlayRandomMenuMusic();
     }
     // Verifica se a última música criada foi tocada...
     void PlayRandomMenuMusic()
     {
-        if (menuMusicClips.Length > 0)
+        if (isGameplayStarted && menuMusicClips.Length > 0)
         {
             List<AudioClip> availableClips = new List<AudioClip>(menuMusicClips);
             availableClips.RemoveAll(clip => recentlyPlayed.Contains(clip));
@@ -31,7 +32,7 @@ public class MenuMusicController : MonoBehaviour
                 audioSource.clip = randomClip;
                 audioSource.Play();
             }
-            // Reinicia a lista se não há músicas tocando...
+            // Reinicia a lista se nao ha musicas tocando...
             else
             {
                 Debug.LogWarning("All menu music clips have been played. Resetting the list.");
@@ -39,11 +40,17 @@ public class MenuMusicController : MonoBehaviour
                 PlayRandomMenuMusic();
             }
         }
-        // Diz que não há músicas assimiladas...
+        // Diz que nao ha musicas assimiladas...
         else
         {
-            Debug.LogError("No menu music clips assigned!");
+            //Debug.LogError("No menu music clips assigned!");
         }
+    }
+    //Quando o jogo inicia...
+    public void StartGameplayMusic()
+    {
+        isGameplayStarted = true;
+        PlayRandomMenuMusic();
     }
     // Update is called once per frame
     void Update()
