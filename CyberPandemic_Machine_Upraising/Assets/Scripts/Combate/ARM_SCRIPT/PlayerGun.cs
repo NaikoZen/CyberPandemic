@@ -18,21 +18,21 @@ public class PlayerGun : NetworkBehaviour
             // Chama o m�todo no servidor para solicitar permiss�o para atirar
             if (lastTimeShot + firingSpeed <= Time.time)
             {
-                GameObject go = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
-                lastTimeShot = Time.time;
+                //GameObject go = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
+                //lastTimeShot = Time.time;
+                //Debug.Log("Tá atirando");
                 RequestPermissionToShootServerRpc();
-
+                 
                 //Debug.Log("aqui pegou");
             }
 
         }
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [ServerRpc]
     void RequestPermissionToShootServerRpc()
     {
       
-
         GrantPermissionToShootClientRpc();
        
     }
@@ -43,8 +43,9 @@ public class PlayerGun : NetworkBehaviour
         
         if (lastTimeShot + firingSpeed <= Time.time)
         {
-            if (!IsLocalPlayer)
-            {
+            //if (IsOwner)
+           // {
+        Debug.Log("Tá atirando");
                 lastTimeShot = Time.time;
                 // Instancia o objeto no servidor
                 GameObject go = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
@@ -52,28 +53,10 @@ public class PlayerGun : NetworkBehaviour
                 
 
 
-            }
+          //  }
         }
         
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    void SpawnProjectileServerRpc(Vector3 position, Quaternion rotation)
-    {
-        // Verifica se � poss�vel disparar novamente
-        if (lastTimeShot + firingSpeed <= Time.time)
-        {
-            if (!IsLocalPlayer)
-            {
-                lastTimeShot = Time.time;
-                // Instancia o objeto no servidor
-                GameObject go = Instantiate(projectilePrefab, position, rotation);
-
-                // Spawna o objeto na rede
-                go.GetComponent<NetworkObject>().Spawn();
-
-
-            }
-        }
-    }
+    
 }

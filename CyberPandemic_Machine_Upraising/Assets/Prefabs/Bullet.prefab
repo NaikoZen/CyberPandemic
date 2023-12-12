@@ -193,7 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2a87260476ba44daa59f40763492e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileSpeed: 10
+  damageAmount: 1
+  projectileSpeed: 20
   maxProjectileDistance: 15
 --- !u!114 &3431848832927629645
 MonoBehaviour:
