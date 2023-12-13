@@ -50,14 +50,23 @@ public class HealthSystem : NetworkBehaviour
         if (currentHealth == 0)
         {
             
-            Die();
+            DieServerRPC();
         }
     }
 
     //evento para informar que um objeto Morreu.
     public event System.Action OnDied;
+    
+    [ServerRpc]
 
-    public void Die()
+    public void DieServerRPC()
+    {
+        DieClientRPC();
+    }
+
+    [ClientRpc]
+
+    public void DieClientRPC()
     {
         // Verifique se o objeto tem a tag "Player"
         if (gameObject.CompareTag("Player"))
