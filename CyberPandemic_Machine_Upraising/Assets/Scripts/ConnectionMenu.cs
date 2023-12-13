@@ -151,7 +151,7 @@ public class ConnectionMenu : NetworkBehaviour
     public void Derrota()
     {
         // Ative a tela de game over quando o jogador morrer
-
+        Debug.Log("Derrota");
         derrota.SetActive(true);
         Invoke("DesativarTelaDerrota", 4f);
         Invoke("Ativar_Scores_Finals", 4f);
