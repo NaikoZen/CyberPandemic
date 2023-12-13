@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2415391970667481400, guid: dd80140686a0c294d9d0474f5ff21256, type: 3}
       propertyPath: m_Name
-      value: Bullet Inimigo Variant
+      value: Bullet Inimigo Variant 1
       objectReference: {fileID: 0}
     - target: {fileID: 3431848832927629645, guid: dd80140686a0c294d9d0474f5ff21256, type: 3}
       propertyPath: GlobalObjectIdHash
@@ -87,7 +87,7 @@ PrefabInstance:
     - target: {fileID: 9146420348818704620, guid: dd80140686a0c294d9d0474f5ff21256, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 003ae746985f7e848aaec5de7003c5d7, type: 2}
+      objectReference: {fileID: 2100000, guid: 87c12afad753fef4594faee4d70e48e4, type: 2}
     m_RemovedComponents:
     - {fileID: -2290651240162948305, guid: dd80140686a0c294d9d0474f5ff21256, type: 3}
     m_RemovedGameObjects: []
@@ -114,6 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8aeedf321444cce44a6c834b3203cc0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 1
-  projectileSpeed: 18
+  damageAmount: 2
+  projectileSpeed: 22
   maxProjectileDistance: 15

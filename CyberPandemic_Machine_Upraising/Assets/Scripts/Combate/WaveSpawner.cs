@@ -100,7 +100,7 @@ public class WaveSpawner : NetworkBehaviour
 
         if (gameManager != null)
         {
-            gameManager.WaveCompleta();
+            gameManager.WaveCompletaServerRPC();
         }
 
         if (nextWave + 1 > waves.Length - 1)

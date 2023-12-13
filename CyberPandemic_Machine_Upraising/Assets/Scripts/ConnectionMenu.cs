@@ -156,8 +156,16 @@ public class ConnectionMenu : NetworkBehaviour
         Invoke("DesativarTelaDerrota", 4f);
         Invoke("Ativar_Scores_Finals", 4f);
     }
+    [ServerRpc]
 
-    public void WaveCompleta()
+    public void WaveCompletaServerRPC()
+    {
+      WaveCompletaClientRPC();
+    }
+
+     [ClientRpc]
+
+    public void WaveCompletaClientRPC()
     {
         // Ative a tela de game over quando o jogador morrer
 
