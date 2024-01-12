@@ -130,7 +130,7 @@ public class SimpleMatchmaking : MonoBehaviour
         {
             Lobby lobby = await Lobbies.Instance.GetLobbyAsync(connectedLobby.Id);
             Debug.Log(lobby.Players.Count);
-            if (lobby.Players.Count == 2) // vai trocar de cena com 1 jogadores conectados
+            if (lobby.Players.Count == 1) // vai trocar de cena com 1 jogadores conectados
             {
                 // cena com nome gameplay -- mudar de acordo com seu jogo
                 NetworkManager.Singleton.SceneManager.LoadScene("Jogo_Beta", UnityEngine.SceneManagement.LoadSceneMode.Single);
