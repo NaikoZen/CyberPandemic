@@ -4,10 +4,10 @@ using UnityEngine;
 using Unity.Netcode;
 
 public class HealthSystem : NetworkBehaviour
-{   
-   // public NetworkVariable<float> PlayersMortos = new NetworkVariable<float>(0);
-     float PlayersMortos = 2f;
-     float searchCountdown = 1f;
+{
+    // public NetworkVariable<float> PlayersMortos = new NetworkVariable<float>(0);
+    float PlayersMortos = 2f;
+    float searchCountdown = 1f;
     public Material normalMaterial;
     public Material flashMaterial;
     public Renderer entidadeRenderer;
@@ -31,17 +31,17 @@ public class HealthSystem : NetworkBehaviour
 
     }
 
-void Update()
-{
-   // PlayerIsAlive();
-}
+    void Update()
+    {
+        // PlayerIsAlive();
+    }
     public void TakeDamage(int damage)
-    {   
+    {
         StartCoroutine(FlashWhite());
         // Lógica adicional de lidar com o dano do inimigo aqui
 
         //Debug.Log("TakeDamage");
-       // if (!IsClient)
+        // if (!IsClient)
         //    return;
 
         currentHealth -= damage;
@@ -62,8 +62,8 @@ void Update()
 
     //evento para informar que um objeto Morreu.
     public event System.Action OnDied;
-    
-     [ServerRpc(RequireOwnership = false)]
+
+    [ServerRpc(RequireOwnership = false)]
 
     public void DieServerRPC()
     {
@@ -76,54 +76,58 @@ void Update()
     {
         // Verifique se o objeto tem a tag "Player"
         if (gameObject.CompareTag("Player"))
-        {  
-            
-            PlayersMortos -= 1f;
-            Debug.Log("Números de Mortos" + PlayersMortos);
+        {
+            if (currentHealth == 0)
+            {
+                ConnectionMenu gameManager = FindObjectOfType<ConnectionMenu>();
+                gameManager.Derrota();
+            }
+            /*
+           //PlayersMortos -= 1f;
+           //Debug.Log("Números de Mortos" + PlayersMortos);
 
-              Debug.Log("Morreu e é Player");
+              //Debug.Log("Morreu e é Player");
             // Adicione este código apenas se a tag for "Player"
-            ConnectionMenu gameManager = FindObjectOfType<ConnectionMenu>();
             if (GameObject.FindGameObjectWithTag("Player") == null)
             { 
                 
+                
                 Debug.Log("Geral Morreu e Tela de Derrota");
-                gameManager.Derrota();
             }
+            */
 
-          
-       
+
         }
         // Adicione qualquer lógica adicional de morte aqui
         // Por exemplo, desativar o GameObject, reproduzir uma animação de morte, etc.
         gameObject.SetActive(false);
-        
+
         OnDied?.Invoke();
-      
-        
+
+
     }
 
-  bool PlayerIsAlive()
-{ 
+    bool PlayerIsAlive()
+    {
 
         if (GameObject.FindGameObjectWithTag("Player") == null)
-        { 
+        {
             Debug.Log("NGM está vivo");
             return false;
         }
         else
-        {   
+        {
             Debug.Log("O povo está vivo");
             return true;
         }
 
-}
+    }
     //Debug.Log("O povo está vivo");
     //return ;  // ou retorne false, dependendo da sua lógica
-     IEnumerator FlashWhite()
+    IEnumerator FlashWhite()
     {
         // Troca o material para o material de flash
-       entidadeRenderer.material = flashMaterial;
+        entidadeRenderer.material = flashMaterial;
 
         // Aguarda por um curto período de tempo
         yield return new WaitForSeconds(0.1f);
